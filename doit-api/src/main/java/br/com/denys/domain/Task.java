@@ -1,4 +1,4 @@
-package br.com.doit.domain;
+package br.com.denys.domain;
 
 import lombok.Data;
 
