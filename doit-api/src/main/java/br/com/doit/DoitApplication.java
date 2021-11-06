@@ -1,4 +1,4 @@
-package br.com.denys;
+package br.com.doit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
