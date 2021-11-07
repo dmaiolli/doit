@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.Optional;
 
 public class AuthorizationFilter extends OncePerRequestFilter {
 
@@ -35,9 +37,10 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void authorize(String token) {
+    private void authorize(String token) throws UserPrincipalNotFoundException {
         Long id = tokenService.getUserId(token);
         User user = userRepository.findById(id).get();
+
 
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);

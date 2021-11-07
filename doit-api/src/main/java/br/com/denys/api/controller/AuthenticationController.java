@@ -34,7 +34,7 @@ public class AuthenticationController {
             String token = tokenService.createToken(authenticate);
             return ResponseEntity.ok(token);
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok(e.toString());
         }
     }
 }

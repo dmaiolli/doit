@@ -39,14 +39,15 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Collection<Role> roles;
+
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
