@@ -1,6 +1,11 @@
 package br.com.denys.domain;
 
+import br.com.denys.dto.UserDTO;
+import br.com.denys.responseDto.UserResponseDTO;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +15,8 @@ import java.util.List;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "TB_USER")
 @SequenceGenerator(name = "user", sequenceName = "SQ_USER", allocationSize = 1, initialValue = 1)
 public class User implements UserDetails {
@@ -32,9 +39,14 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -65,4 +77,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
